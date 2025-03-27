@@ -8,3 +8,13 @@ C:\Users\Jhoan\source\repos\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csproj.Ge
 C:\Users\Jhoan\source\repos\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csproj.CoreCompileInputs.cache
 C:\Users\Jhoan\source\repos\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.exe
 C:\Users\Jhoan\source\repos\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.pdb
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\bin\Debug\Mandelbrot.exe.config
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\bin\Debug\Mandelbrot.exe
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\bin\Debug\Mandelbrot.pdb
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csproj.AssemblyReference.cache
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.Form1.resources
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.Properties.Resources.resources
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csproj.GenerateResource.cache
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csproj.CoreCompileInputs.cache
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.exe
+C:\Users\jyajo\source\repos\Joaquinfr87\Fractales-ProyectoFinal\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.pdb
