@@ -34,17 +34,13 @@ namespace Fractales_ProyectoFinal
             double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
             double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
             double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
-            if (nuevaXIzq < Ancho && nuevaYIzq < Alto)
-            {
-                nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-                LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1);
-            }
-
-            if (nuevaXDer < Ancho && nuevaYDer < Alto)
-            {
-                nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-                LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1);
-            }
+            
+            nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
+            LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1);
+           
+            
+            nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
+            LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1);
         }
     }
 

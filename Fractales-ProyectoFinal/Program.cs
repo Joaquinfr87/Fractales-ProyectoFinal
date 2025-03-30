@@ -6,7 +6,7 @@ namespace Fractales_ProyectoFinal {
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Ventana());
+            Application.Run(new Form1());
         }
     }
 }
