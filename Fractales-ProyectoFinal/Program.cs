@@ -1,17 +1,88 @@
-namespace Fractales_ProyectoFinal
-{
-    internal static class Program
+﻿using System.Drawing;
+
+class Nodo {
+    public Nodo Izquierda, Derecha;
+    public double x, y;
+    public Nodo(double X,double Y) { x = X; y = Y; }
+}
+class Arbol {
+    public Nodo raiz;
+    int Ancho, Alto;
+    public Arbol(int ancho,int alto) { Ancho = ancho;Alto = alto;}
+
+    public void LlenadoArbol(Nodo nodo, double longitud, int angulo, int angulo_inicial, int profundidad)
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        if (profundidad == 0) return; 
+
+        if (nodo == null)
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            nodo = new Nodo(0, longitud);
+            raiz = nodo;
         }
+        longitud = longitud*0.5;
+        double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+        double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+        double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+        double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;      
+        if (nuevaXIzq < Ancho && nuevaYIzq < Alto)
+        {
+            nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
+            LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1);
+        }
+
+        if (nuevaXDer < Ancho && nuevaYDer < Alto)
+        {
+            nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
+            LlenadoArbol(nodo.Derecha, longitud*0.75, angulo, angulo_inicial - angulo, profundidad - 1);
+        }
+    }
+}
+
+class Ventana : Form {
+    int Ancho, Alto;
+    Bitmap Mapa_pixeles;
+    Arbol arbol;
+    public Ventana() {
+        this.Text = "Fractales";
+        this.Width = 1000;
+        this.Height = 1000;
+        Ancho = this.Width;
+        Alto = this.Height;
+
+        arbol=new Arbol(Ancho, Alto);
+        arbol.LlenadoArbol(arbol.raiz,250.0,45,90,30);
+
+        PictureBox plano = new PictureBox();
+        plano.Size = new Size(Ancho, Alto);
+        plano.BackColor=Color.Black;
+
+        Mapa_pixeles = new Bitmap(Ancho,Alto);
+
+        this.Controls.Add( plano );
+
+        plano.Image = Mapa_pixeles;
+
+        Dibujar(Graphics.FromImage(Mapa_pixeles), new Pen(Color.Blue, 1),arbol.raiz);
+
+
+    }
+    public void Dibujar(Graphics g,Pen lapiz,Nodo nodo) {
+        if (nodo == arbol.raiz) { g.DrawLine(lapiz, 500, 1000, 500-(float)nodo.x,1000-(float)nodo.y);}
+        if (nodo.Izquierda == null || nodo.Derecha == null) { return; }
+        g.DrawLine(lapiz, 500 - (float)nodo.x, 1000 - (float)nodo.y,500- (float)nodo.Izquierda.x, 1000 - (float)nodo.Izquierda.y);
+        g.DrawLine(lapiz, 500 - (float)nodo.x, 1000 - (float)nodo.y, 500 - (float)nodo.Derecha.x, 1000 - (float)nodo.Derecha.y);
+
+       
+        Dibujar(g,lapiz,nodo.Izquierda);
+        Dibujar(g,lapiz,nodo.Derecha);
+
+    }
+
+}
+class Program {
+    static void Main() {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new Ventana());
     }
 }
