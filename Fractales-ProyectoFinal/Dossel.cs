@@ -54,6 +54,7 @@ namespace Fractales_ProyectoFinal
         Arbol arbol;
 
         Button botonIniciar;
+        Button botonLimpiar;
 
         Label Longitud_label;
         TextBox Longitud_input;
@@ -65,6 +66,12 @@ namespace Fractales_ProyectoFinal
         TextBox Profundidad_input;
         Label Razon_label;
         TextBox Razon_input;
+        Label Color_label;
+        TextBox Color_input;
+        Label origenX_label;
+        TextBox origenX_input;
+        Label origenY_label;
+        TextBox origenY_input;
         public VentanaDossel()
         {
 
@@ -77,9 +84,16 @@ namespace Fractales_ProyectoFinal
             botonIniciar = new Button();
             botonIniciar.Text = "Iniciar";
             botonIniciar.Size = new Size(100, 50);
-            botonIniciar.Location = new Point(Width-150, 50);
+            botonIniciar.Location = new Point(Width-150, 5);
             botonIniciar.Click+=new EventHandler(botonIniciar_Click);
             this.Controls.Add(botonIniciar);
+
+            botonLimpiar = new Button();
+            botonLimpiar.Text = "Limpiar";
+            botonLimpiar.Size = new Size(100, 50);
+            botonLimpiar.Location = new Point(Width - 150, 60);
+            botonLimpiar.Click += new EventHandler(botonLimpiar_Click);
+            this.Controls.Add(botonLimpiar);
 
             Longitud_label = new Label();
             Longitud_label.Text = "Longitud";
@@ -131,8 +145,35 @@ namespace Fractales_ProyectoFinal
             Razon_input.Text = "0.6";
             this.Controls.Add(Razon_input);
 
+            Color_label = new Label();
+            Color_label.Text = "Color";
+            Color_label.Location = new Point(Width - 135, 400);
+            this.Controls.Add(Color_label);
 
+            Color_input = new TextBox();
+            Color_input.Location = new Point(Width - 150, 425);
+            Color_input.Text = "Blue";
+            this.Controls.Add(Color_input);
 
+            origenX_label = new Label();
+            origenX_label.Text = "Origen X";
+            origenX_label.Location = new Point(Width - 135, 450);
+            this.Controls.Add(origenX_label);
+
+            origenX_input = new TextBox();
+            origenX_input.Location = new Point(Width - 150, 475);
+            origenX_input.Text = $"{(Ancho-200)/2}";
+            this.Controls.Add(origenX_input);
+
+            origenY_label = new Label();
+            origenY_label.Text = "Origen Y";
+            origenY_label.Location = new Point(Width - 135, 500);
+            this.Controls.Add(origenY_label);
+
+            origenY_input = new TextBox();
+            origenY_input.Location = new Point(Width - 150, 525);
+            origenY_input.Text = $"{Alto}";
+            this.Controls.Add(origenY_input);
 
             plano = new PictureBox();
             plano.Size = new Size(Ancho-200, Alto);
@@ -144,34 +185,41 @@ namespace Fractales_ProyectoFinal
 
 
         }
-        public void Dibujar(Graphics g, Pen lapiz, Nodo nodo)
-        {
-            if (nodo == arbol.raiz) {g.DrawLine(lapiz, arbol.Ancho/2, arbol.Alto, arbol.Ancho/2 - (float)nodo.x, arbol.Alto - (float)nodo.y); }
-            if (nodo.Izquierda == null || nodo.Derecha == null) { return; }
-            g.DrawLine(lapiz, arbol.Ancho/2 - (float)nodo.x, arbol.Alto- (float)nodo.y, arbol.Ancho/2- (float)nodo.Izquierda.x, arbol.Alto- (float)nodo.Izquierda.y);
-            g.DrawLine(lapiz, arbol.Ancho/ 2 - (float)nodo.x, arbol.Alto - (float)nodo.y, arbol.Ancho/2 - (float)nodo.Derecha.x, arbol.Alto - (float)nodo.Derecha.y);
+            public void Dibujar(Graphics g, Pen lapiz, Nodo nodo,int origenX,int origenY)
+            {
+                if (nodo == arbol.raiz) {g.DrawLine(lapiz, origenX, origenY, origenX- (float)nodo.x, origenY - (float)nodo.y); }
+                if (nodo.Izquierda == null || nodo.Derecha == null) { return; }
+                g.DrawLine(lapiz, origenX - (float)nodo.x, origenY- (float)nodo.y, origenX- (float)nodo.Izquierda.x, origenY- (float)nodo.Izquierda.y);
+                g.DrawLine(lapiz, origenX - (float)nodo.x, origenY- (float)nodo.y, origenX- (float)nodo.Derecha.x, origenY - (float)nodo.Derecha.y);
 
-            Dibujar(g, lapiz, nodo.Izquierda);
-            Dibujar(g, lapiz, nodo.Derecha);
-        }
-        private void botonIniciar_Click(object sender, EventArgs e)
-        {
-            double longitud = double.Parse(Longitud_input.Text);
-            int angulo = int.Parse(Angulo_input.Text);
-            int angulo_inicial = int.Parse(AnguloInicial_input.Text);
-            int profundidad = int.Parse(Profundidad_input.Text);
-            double razon = double.Parse(Razon_input.Text);
+                Dibujar(g, lapiz, nodo.Izquierda,origenX,origenY);
+                Dibujar(g, lapiz, nodo.Derecha,origenX,origenY);
+            }
+            private void botonIniciar_Click(object sender, EventArgs e)
+            {
+                double longitud = double.Parse(Longitud_input.Text);
+                int angulo = int.Parse(Angulo_input.Text);
+                int angulo_inicial = int.Parse(AnguloInicial_input.Text);
+                int profundidad = int.Parse(Profundidad_input.Text);
+                double razon = double.Parse(Razon_input.Text);
 
-            arbol = new Arbol(Ancho - 200, Alto);
-            //arbol.LlenadoArbol(arbol.raiz, 200.0, 45, 90, 10, 0.6);
-            arbol.LlenadoArbol(arbol.raiz, longitud, angulo, angulo_inicial, profundidad,razon);
-
+                arbol = new Arbol(Ancho - 200, Alto);
+                arbol.LlenadoArbol(arbol.raiz, longitud, angulo, angulo_inicial, profundidad,razon);
+                
+                int origenX=int.Parse(origenX_input.Text);
+                int origenY = int.Parse(origenY_input.Text);
             
-            Dibujar(Graphics.FromImage(Mapa_pixeles), new Pen(Color.Blue, 1), arbol.raiz);
+                Dibujar(Graphics.FromImage(Mapa_pixeles), new Pen(Color.FromName(Color_input.Text), 1), arbol.raiz,origenX,origenY);
             
-            plano.Image = Mapa_pixeles;
-            plano.Refresh();
+                plano.Image = Mapa_pixeles;
+                plano.Refresh();
 
+            }
+            private void botonLimpiar_Click(object sender, EventArgs e) {
+                Mapa_pixeles.Dispose();
+                Mapa_pixeles= new Bitmap(Ancho - 200, Alto);
+                plano.Image = Mapa_pixeles;
+                plano.Refresh();
         }
 
     }
