@@ -16,7 +16,7 @@ namespace Fractales_ProyectoFinal
     {
 
         public Nodo raiz;
-        int Ancho, Alto;
+        public int Ancho, Alto;
         public Arbol(int ancho, int alto) { Ancho = ancho; Alto = alto; }
 
         public void LlenadoArbol(Nodo nodo, double longitud, int angulo, int angulo_inicial, int profundidad)
@@ -30,18 +30,18 @@ namespace Fractales_ProyectoFinal
                 nodo = new Nodo(x, longitud);
                 raiz = nodo;
             }
-            longitud = longitud;
-            double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.5;
-            double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.5;
-            double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.75;
-            double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.75;
+            longitud = longitud*0.6;
+            double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+            double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+            double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+            double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
             
             nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-            LlenadoArbol(nodo.Izquierda, longitud*0.5, angulo, angulo_inicial + angulo, profundidad - 1);
+            LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1);
            
             
             nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-            LlenadoArbol(nodo.Derecha, longitud *0.75, angulo, angulo_inicial - angulo, profundidad - 1);
+            LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1);
         }
     }
 
@@ -49,44 +49,59 @@ namespace Fractales_ProyectoFinal
     {
         int Ancho, Alto;
         Bitmap Mapa_pixeles;
-        Arbol arbol,arbol2;
+        Arbol arbol;
+        Button botonIniciar;
+        PictureBox plano;
+
         public VentanaDossel()
         {
+
             this.Text = "Fractales";
-            this.Width = 1000;
-            this.Height = 1000;
+            this.Width = 1100;
+            this.Height = 700;
             Ancho = this.Width;
             Alto = this.Height;
 
-            arbol = new Arbol(Ancho, Alto);
-            arbol.LlenadoArbol(arbol.raiz, 300, 45, 90, 20);
+            botonIniciar = new Button();
+            botonIniciar.Text = "Iniciar";
+            botonIniciar.Size = new Size(100, 50);
+            botonIniciar.Location = new Point(Width-150, 50);
+            botonIniciar.Click+=new EventHandler(botonIniciar_Click);
 
-            arbol2 = new Arbol(Ancho, Alto);
-            
-            PictureBox plano = new PictureBox();
-            plano.Size = new Size(Ancho, Alto);
+            plano = new PictureBox();
+            plano.Size = new Size(Ancho-200, Alto);
             plano.BackColor = Color.Black;
 
-            Mapa_pixeles = new Bitmap(Ancho, Alto);
+            Mapa_pixeles = new Bitmap(Ancho-200, Alto);
 
             this.Controls.Add(plano);
-
+            this.Controls.Add(botonIniciar);
             plano.Image = Mapa_pixeles;
 
-            Dibujar(Graphics.FromImage(Mapa_pixeles), new Pen(Color.Blue, 1), arbol.raiz);
 
+            
 
         }
         public void Dibujar(Graphics g, Pen lapiz, Nodo nodo)
         {
-            if (nodo == arbol.raiz) { g.DrawLine(lapiz, 500, 1000, 500 - (float)nodo.x, 1000 - (float)nodo.y); }
+            if (nodo == arbol.raiz) { g.DrawLine(lapiz, arbol.Ancho/2, arbol.Alto, arbol.Ancho/2 - (float)nodo.x, arbol.Alto - (float)nodo.y); }
             if (nodo.Izquierda == null || nodo.Derecha == null) { return; }
-            g.DrawLine(lapiz, 500 - (float)nodo.x, 1000 - (float)nodo.y, 500 - (float)nodo.Izquierda.x, 1000 - (float)nodo.Izquierda.y);
-            g.DrawLine(lapiz, 500 - (float)nodo.x, 1000 - (float)nodo.y, 500 - (float)nodo.Derecha.x, 1000 - (float)nodo.Derecha.y);
+            g.DrawLine(lapiz, arbol.Ancho/2 - (float)nodo.x, arbol.Alto- (float)nodo.y, arbol.Ancho/2- (float)nodo.Izquierda.x, arbol.Alto- (float)nodo.Izquierda.y);
+            g.DrawLine(lapiz, arbol.Ancho/ 2 - (float)nodo.x, arbol.Alto - (float)nodo.y, arbol.Ancho/2 - (float)nodo.Derecha.x, arbol.Alto - (float)nodo.Derecha.y);
 
 
             Dibujar(g, lapiz, nodo.Izquierda);
             Dibujar(g, lapiz, nodo.Derecha);
+        }
+        private void botonIniciar_Click(object sender, EventArgs e)
+        {
+            arbol = new Arbol(Ancho - 200, Alto);
+            arbol.LlenadoArbol(arbol.raiz, 200, 45, 90, 10);
+            
+            Dibujar(Graphics.FromImage(Mapa_pixeles), new Pen(Color.Blue, 1), arbol.raiz);
+            
+            plano.Image = Mapa_pixeles;
+            plano.Refresh();
 
         }
 
