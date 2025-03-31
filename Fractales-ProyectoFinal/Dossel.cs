@@ -14,6 +14,7 @@ namespace Fractales_ProyectoFinal
     }
     class Arbol
     {
+
         public Nodo raiz;
         int Ancho, Alto;
         public Arbol(int ancho, int alto) { Ancho = ancho; Alto = alto; }
@@ -29,27 +30,27 @@ namespace Fractales_ProyectoFinal
                 nodo = new Nodo(x, longitud);
                 raiz = nodo;
             }
-            longitud = longitud * 0.5;
-            double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-            double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-            double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
-            double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+            longitud = longitud;
+            double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.5;
+            double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.5;
+            double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.75;
+            double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.75;
             
             nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-            LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1);
+            LlenadoArbol(nodo.Izquierda, longitud*0.5, angulo, angulo_inicial + angulo, profundidad - 1);
            
             
             nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-            LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1);
+            LlenadoArbol(nodo.Derecha, longitud *0.75, angulo, angulo_inicial - angulo, profundidad - 1);
         }
     }
 
-    class Ventana : Form
+    class VentanaDossel : Form
     {
         int Ancho, Alto;
         Bitmap Mapa_pixeles;
-        Arbol arbol;
-        public Ventana()
+        Arbol arbol,arbol2;
+        public VentanaDossel()
         {
             this.Text = "Fractales";
             this.Width = 1000;
@@ -58,8 +59,10 @@ namespace Fractales_ProyectoFinal
             Alto = this.Height;
 
             arbol = new Arbol(Ancho, Alto);
-            arbol.LlenadoArbol(arbol.raiz, 500.0, 45, 90, 20);
+            arbol.LlenadoArbol(arbol.raiz, 300, 45, 90, 20);
 
+            arbol2 = new Arbol(Ancho, Alto);
+            
             PictureBox plano = new PictureBox();
             plano.Size = new Size(Ancho, Alto);
             plano.BackColor = Color.Black;
