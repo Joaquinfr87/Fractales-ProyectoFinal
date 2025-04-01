@@ -17,10 +17,13 @@ namespace Fractales_ProyectoFinal
 
         public Nodo raiz;
         public int Ancho, Alto;
+        Random random = new Random();
         public Arbol(int ancho, int alto) { Ancho = ancho; Alto = alto; }
 
             public void LlenadoArbol(Nodo nodo, double longitud, int angulo, int angulo_inicial, int profundidad,double razon)
             {
+            
+                
                 if (profundidad == 0) return;
 
                 if (nodo == null)
@@ -102,7 +105,7 @@ namespace Fractales_ProyectoFinal
 
             Longitud_input = new TextBox();
             Longitud_input.Location = new Point(Width - 150, 175);
-            Longitud_input.Text = "200.0";
+            Longitud_input.Text = "250.0";
             this.Controls.Add(Longitud_input);
 
             AnguloInicial_label = new Label();
@@ -112,7 +115,7 @@ namespace Fractales_ProyectoFinal
 
             AnguloInicial_input = new TextBox();
             AnguloInicial_input.Location = new Point(Width - 150, 225);
-            AnguloInicial_input.Text = "0";
+            AnguloInicial_input.Text = "90";
             this.Controls.Add(AnguloInicial_input);
 
             Angulo_label = new Label();
@@ -172,7 +175,7 @@ namespace Fractales_ProyectoFinal
 
             origenY_input = new TextBox();
             origenY_input.Location = new Point(Width - 150, 525);
-            origenY_input.Text = $"{Alto/2}";
+            origenY_input.Text = $"{Alto}";
             this.Controls.Add(origenY_input);
 
             plano = new PictureBox();
