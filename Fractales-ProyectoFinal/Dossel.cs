@@ -19,30 +19,30 @@ namespace Fractales_ProyectoFinal
         public int Ancho, Alto;
         public Arbol(int ancho, int alto) { Ancho = ancho; Alto = alto; }
 
-        public void LlenadoArbol(Nodo nodo, double longitud, int angulo, int angulo_inicial, int profundidad,double razon)
-        {
-            if (profundidad == 0) return;
-
-            if (nodo == null)
+            public void LlenadoArbol(Nodo nodo, double longitud, int angulo, int angulo_inicial, int profundidad,double razon)
             {
-                double x = Math.Cos(angulo_inicial * Math.PI / 180) * longitud;
-                double y = Math.Sin(angulo_inicial * Math.PI / 180) * longitud;
-                nodo = new Nodo(x, longitud);
-                raiz = nodo;
-            }
-            longitud = longitud*razon;
-            double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-            double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-            double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
-            double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+                if (profundidad == 0) return;
+
+                if (nodo == null)
+                {
+                    double x = Math.Cos(angulo_inicial * Math.PI / 180) * longitud;
+                    double y = Math.Sin(angulo_inicial * Math.PI / 180) * longitud;
+                    nodo = new Nodo(x, y);
+                    raiz = nodo;
+                }
+                longitud = longitud*razon;
+                double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+                double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
+                double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+                double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
             
-            nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-            LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1,razon);
+                nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
+                LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1,razon);
            
             
-            nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-            LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1,razon);
-        }
+                nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
+                LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1,razon);
+            }
     }
 
     class VentanaDossel : Form
@@ -112,7 +112,7 @@ namespace Fractales_ProyectoFinal
 
             AnguloInicial_input = new TextBox();
             AnguloInicial_input.Location = new Point(Width - 150, 225);
-            AnguloInicial_input.Text = "90";
+            AnguloInicial_input.Text = "0";
             this.Controls.Add(AnguloInicial_input);
 
             Angulo_label = new Label();
@@ -172,7 +172,7 @@ namespace Fractales_ProyectoFinal
 
             origenY_input = new TextBox();
             origenY_input.Location = new Point(Width - 150, 525);
-            origenY_input.Text = $"{Alto}";
+            origenY_input.Text = $"{Alto/2}";
             this.Controls.Add(origenY_input);
 
             plano = new PictureBox();
