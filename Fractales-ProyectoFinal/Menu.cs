@@ -25,7 +25,7 @@ namespace Fractales_ProyectoFinal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 fractal2 = new Form1();
+            MandelbrotForm fractal2 = new MandelbrotForm();
             fractal2.Show();
         }
     }
