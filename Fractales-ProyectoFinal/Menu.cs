@@ -28,5 +28,11 @@ namespace Fractales_ProyectoFinal
             MandelbrotForm fractal2 = new MandelbrotForm();
             fractal2.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            VentanaSierpinski farctal3 = new VentanaSierpinski();
+            farctal3.Show();    
+        }
     }
 }
