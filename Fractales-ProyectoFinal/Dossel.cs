@@ -105,7 +105,7 @@ namespace Fractales_ProyectoFinal
 
             Longitud_input = new TextBox();
             Longitud_input.Location = new Point(Width - 150, 175);
-            Longitud_input.Text = "300,0";
+            Longitud_input.Text = "300.0";
             this.Controls.Add(Longitud_input);
 
             AnguloInicial_label = new Label();
