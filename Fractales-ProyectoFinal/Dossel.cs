@@ -34,17 +34,17 @@ namespace Fractales_ProyectoFinal
                     raiz = nodo;
                 }
                 longitud = longitud*razon;
-                double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-                double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud;
-                double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud;
-                double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud;
+                double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.75;
+                double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.75;
+                double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.5;
+                double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.5;
             
                 nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-                LlenadoArbol(nodo.Izquierda, longitud, angulo, angulo_inicial + angulo, profundidad - 1,razon);
+                LlenadoArbol(nodo.Izquierda, longitud*0.75, angulo, angulo_inicial + angulo, profundidad - 1,razon);
            
             
                 nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-                LlenadoArbol(nodo.Derecha, longitud, angulo, angulo_inicial - angulo, profundidad - 1,razon);
+                LlenadoArbol(nodo.Derecha, longitud*0.5, angulo, angulo_inicial - angulo, profundidad - 1,razon);
             }
     }
 
@@ -105,7 +105,7 @@ namespace Fractales_ProyectoFinal
 
             Longitud_input = new TextBox();
             Longitud_input.Location = new Point(Width - 150, 175);
-            Longitud_input.Text = "250.0";
+            Longitud_input.Text = "300,0";
             this.Controls.Add(Longitud_input);
 
             AnguloInicial_label = new Label();
@@ -125,7 +125,7 @@ namespace Fractales_ProyectoFinal
             
             Angulo_input = new TextBox();
             Angulo_input.Location = new Point(Width - 150, 275);
-            Angulo_input.Text = "45";
+            Angulo_input.Text = "60";
             this.Controls.Add(Angulo_input);
 
             Profundidad_label = new Label();
@@ -135,7 +135,7 @@ namespace Fractales_ProyectoFinal
 
             Profundidad_input = new TextBox();
             Profundidad_input.Location = new Point(Width - 150, 325);
-            Profundidad_input.Text = "10";
+            Profundidad_input.Text = "17";
             this.Controls.Add(Profundidad_input);
            
             Razon_label = new Label();
@@ -145,7 +145,7 @@ namespace Fractales_ProyectoFinal
 
             Razon_input = new TextBox();
             Razon_input.Location = new Point(Width - 150, 375);
-            Razon_input.Text = "0.6";
+            Razon_input.Text = "1";
             this.Controls.Add(Razon_input);
 
             Color_label = new Label();
@@ -165,7 +165,7 @@ namespace Fractales_ProyectoFinal
 
             origenX_input = new TextBox();
             origenX_input.Location = new Point(Width - 150, 475);
-            origenX_input.Text = $"{(Ancho-200)/2}";
+            origenX_input.Text = $"{(Ancho-200)/2-100}";
             this.Controls.Add(origenX_input);
 
             origenY_label = new Label();
