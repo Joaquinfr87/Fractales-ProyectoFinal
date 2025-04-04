@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,23 +28,23 @@ namespace Fractales_ProyectoFinal
 
                 if (nodo == null)
                 {
-                    double x = Math.Cos(angulo_inicial * Math.PI / 180) * longitud;
-                    double y = Math.Sin(angulo_inicial * Math.PI / 180) * longitud;
+                    double x = Math.Cos(random.Next(80, 100) * Math.PI / 180) * longitud;
+                    double y = Math.Sin(random.Next(80, 100) * Math.PI / 180) * longitud;
                     nodo = new Nodo(x, y);
                     raiz = nodo;
                 }
                 longitud = longitud*razon;
-                double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.75;
-                double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + angulo) * Math.PI / 180) * longitud*0.75;
-                double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.5;
-                double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - angulo) * Math.PI / 180) * longitud*0.5;
+                double nuevaXIzq = nodo.x + Math.Cos((angulo_inicial + random.Next(angulo-30,angulo+30)) * Math.PI / 180) * longitud*random.Next(30,70)/100;
+                double nuevaYIzq = nodo.y + Math.Sin((angulo_inicial + random.Next(angulo - 30, angulo + 30)) * Math.PI / 180) * longitud* random.Next(30, 70) / 100;
+                double nuevaXDer = nodo.x + Math.Cos((angulo_inicial - random.Next(angulo - 30, angulo + 30)) * Math.PI / 180) * longitud* random.Next(30, 70) / 100;
+                double nuevaYDer = nodo.y + Math.Sin((angulo_inicial - random.Next(angulo - 30, angulo + 30)) * Math.PI / 180) * longitud* random.Next(30, 70) / 100;
             
                 nodo.Izquierda = new Nodo(nuevaXIzq, nuevaYIzq);
-                LlenadoArbol(nodo.Izquierda, longitud*0.75, angulo, angulo_inicial + angulo, profundidad - 1,razon);
+                LlenadoArbol(nodo.Izquierda, longitud*random.Next(60, 70) / 100, angulo, angulo_inicial + angulo, profundidad - 1,razon);
            
             
                 nodo.Derecha = new Nodo(nuevaXDer, nuevaYDer);
-                LlenadoArbol(nodo.Derecha, longitud*0.5, angulo, angulo_inicial - angulo, profundidad - 1,razon);
+                LlenadoArbol(nodo.Derecha, longitud * random.Next(60, 70) / 100, angulo, angulo_inicial - angulo, profundidad - 1,razon);
             }
     }
 
@@ -135,7 +135,7 @@ namespace Fractales_ProyectoFinal
 
             Profundidad_input = new TextBox();
             Profundidad_input.Location = new Point(Width - 150, 325);
-            Profundidad_input.Text = "17";
+            Profundidad_input.Text = "14";
             this.Controls.Add(Profundidad_input);
            
             Razon_label = new Label();
@@ -155,7 +155,7 @@ namespace Fractales_ProyectoFinal
 
             Color_input = new TextBox();
             Color_input.Location = new Point(Width - 150, 425);
-            Color_input.Text = "Blue";
+            Color_input.Text = "Green";
             this.Controls.Add(Color_input);
 
             origenX_label = new Label();
@@ -165,7 +165,7 @@ namespace Fractales_ProyectoFinal
 
             origenX_input = new TextBox();
             origenX_input.Location = new Point(Width - 150, 475);
-            origenX_input.Text = $"{(Ancho-200)/2-100}";
+            origenX_input.Text = $"{(Ancho-200)/2}";
             this.Controls.Add(origenX_input);
 
             origenY_label = new Label();
@@ -227,3 +227,4 @@ namespace Fractales_ProyectoFinal
 
     }
 }
+
